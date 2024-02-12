@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 
 train_df, test_df = train_test_split(training_df, test_size=0.2, random_state=42)
 print(training_df.columns)
+
 # Specify the feature and the label.
 features = ['Age', 'Height', 'Weight', 'PremiumPrice', 'Diabetes_0', 'Diabetes_1',
        'BloodPressureProblems_0', 'BloodPressureProblems_1',
