@@ -4,7 +4,7 @@ import tensorflow as tf
 pd.options.display.max_rows = 10
 pd.options.display.float_format = "{:.1f}".format
 
-training_df = pd.read_csv("Medicalpremium.csv")
+training_df = pd.read_csv("medical_premium.csv")
 print(training_df.head())
 print(training_df.describe())
 
