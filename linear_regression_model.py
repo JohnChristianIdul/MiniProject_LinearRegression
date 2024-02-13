@@ -4,27 +4,18 @@ from sklearn.preprocessing import StandardScaler
 
 pd.options.display.max_rows = 10
 pd.options.display.float_format = "{:.1f}".format
-
 training_df = pd.read_csv("medical_premium.csv")
-print(training_df.head())
-print(training_df.describe())
 
-# One-hot encode categorical variables
-training_df = pd.get_dummies(training_df, columns=['Diabetes', 'BloodPressureProblems', 'AnyTransplants',
-                                                   'AnyChronicDiseases', 'KnownAllergies', 'HistoryOfCancerInFamily',
-                                                   'NumberOfMajorSurgeries'])
+# Specify the columns to exclude from one-hot encoding (usually continuous variables and the target variable)
+exclude_columns = ['PremiumPrice']
+
+# One-hot encode categorical variables (excluding 'PremiumPrice', and optionally excluding 'Age' and 'Weight'
+# if they're continuous)
+training_df_encoded = pd.get_dummies(training_df, columns=[col for col in training_df.columns if col not in exclude_columns])
 
 # Convert dataframe to float type
 training_df = training_df.astype(float)
 
-# Specify the features to be used
-features = ['Diabetes_1', 'AnyTransplants_1', 'NumberOfMajorSurgeries_3',
-            'BloodPressureProblems_1', 'NumberOfMajorSurgeries_1', 'NumberOfMajorSurgeries_2',
-            'HistoryOfCancerInFamily_1', 'AnyChronicDiseases_1', 'KnownAllergies_1', 'Age']
-
-# Normalize only the specified features
-scaler = StandardScaler()
-training_df[features] = scaler.fit_transform(training_df[features])
 
 # Define the model
 def build_model(my_learning_rate, my_features):
