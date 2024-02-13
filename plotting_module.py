@@ -3,10 +3,17 @@ from matplotlib import pyplot as plt
 
 def plot_the_model(predictions, labels):
     """Plot the predicted charges against the actual price."""
-    plt.scatter(labels, predictions)
+    plt.figure(figsize=(8, 6))  # Optional: Adjusts the figure size for better readability
+    plt.scatter(labels, predictions, alpha=0.5)  # alpha is set to make dots semi-transparent
     plt.xlabel("Actual charges")
     plt.ylabel("Predicted charges")
     plt.title("Actual vs. Predicted charges")
+
+    # Add a red line that bisects the graph
+    min_val = min(labels.min(), predictions.min())
+    max_val = max(labels.max(), predictions.max())
+    plt.plot([min_val, max_val], [min_val, max_val], color='red')  # Line from min to max
+
     plt.show()
 
 

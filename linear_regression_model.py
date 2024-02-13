@@ -1,5 +1,6 @@
 import pandas as pd
 import tensorflow as tf
+from sklearn.preprocessing import StandardScaler
 
 pd.options.display.max_rows = 10
 pd.options.display.float_format = "{:.1f}".format
@@ -16,6 +17,14 @@ training_df = pd.get_dummies(training_df, columns=['Diabetes', 'BloodPressurePro
 # Convert dataframe to float type
 training_df = training_df.astype(float)
 
+# Specify the features to be used
+features = ['Diabetes_1', 'AnyTransplants_1', 'NumberOfMajorSurgeries_3',
+            'BloodPressureProblems_1', 'NumberOfMajorSurgeries_1', 'NumberOfMajorSurgeries_2',
+            'HistoryOfCancerInFamily_1', 'AnyChronicDiseases_1', 'KnownAllergies_1', 'Age']
+
+# Normalize only the specified features
+scaler = StandardScaler()
+training_df[features] = scaler.fit_transform(training_df[features])
 
 # Define the model
 def build_model(my_learning_rate, my_features):
